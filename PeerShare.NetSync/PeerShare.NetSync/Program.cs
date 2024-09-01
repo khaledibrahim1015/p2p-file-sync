@@ -1,10 +1,12 @@
-﻿namespace PeerShare.NetSync
+﻿namespace PeerShare.NetSync.Main;
+
+public class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+        Console.WriteLine("Hello, World!");
+
+
+        Console.ReadKey();
     }
 }
