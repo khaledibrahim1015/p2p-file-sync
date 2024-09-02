@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PeerShare.NetSync.Lib\PeerShare.NetSync.Lib.csproj" />
+  </ItemGroup>
+
 </Project>
