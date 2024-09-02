@@ -29,7 +29,15 @@ public class FileTransferState
             File.Delete(filePath);
     }
 
+    public static FileTransferState LoadState(string fileName)
+    {
+        string filePath = Path.Combine(StateDirectory, $"{fileName}.json");
+        if (!File.Exists(filePath))
+            return null;
 
+        string json = File.ReadAllText(filePath);
+        return JsonSerializer.Deserialize<FileTransferState>(json);
+    }
 
 
 

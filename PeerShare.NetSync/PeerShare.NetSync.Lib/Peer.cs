@@ -60,10 +60,6 @@ public class Peer
             _ = HandleIncomingConnectionAsync(client);
 
         }
-
-
-
-
     }
 
     private async Task HandleIncomingConnectionAsync(TcpClient client)
@@ -102,9 +98,9 @@ public class Peer
 
     }
 
-    private Task ReceiveFileAsync(NetworkStream networkStream, string metaData)
+    private async Task ReceiveFileAsync(NetworkStream networkStream, string metaData)
     {
-        throw new NotImplementedException();
+        await ReceiverService.ReceiveFileAsync(networkStream, metaData);
     }
 
     private async Task<bool> EnsureConnectedAsync()
@@ -162,10 +158,19 @@ public class Peer
     public async Task SendFileAsync(string path)
     {
 
+        if (!await EnsureConnectedAsync())
+        {
+            Console.WriteLine("Failed to connect to receiver. Message not sent.");
+            return;
+        }
 
+        if (!_connections.TryGetValue(_peerConnectionInfo, out var connectionManager))
+        {
+            Console.WriteLine("Not connected to a receiver.");
+            return;
+        }
 
-
-
+        await SenderService.SendFileAsync(connectionManager.stream, path);
     }
 
 }
